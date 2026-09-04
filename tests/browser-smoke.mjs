@@ -24,6 +24,31 @@ async function waitForTarget() {
   throw new Error("Chrome DevTools target did not become ready");
 }
 
+async function waitForDocument(client, expectedPath = "") {
+  for (let attempt = 0; attempt < 80; attempt += 1) {
+    const state = await client.send("Runtime.evaluate", {
+      expression: `({ title: document.title, url: document.URL, readyState: document.readyState })`,
+      returnByValue: true,
+    });
+    const { title, url, readyState } = state.result.value;
+    if (url.startsWith(baseUrl) && url.includes(expectedPath) && title && readyState === "complete") return;
+    await pause(250);
+  }
+  throw new Error(`Page document did not finish loading: ${expectedPath || "/"}`);
+}
+
+async function waitForStoredWorkspace(client) {
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    const state = await client.send("Runtime.evaluate", {
+      expression: `Boolean(localStorage.getItem('proofready-ai-v1'))`,
+      returnByValue: true,
+    });
+    if (state.result.value) return;
+    await pause(250);
+  }
+  throw new Error("Demo workspace was not stored after clicking Load demo");
+}
+
 function cdp(webSocketUrl) {
   const socket = new WebSocket(webSocketUrl);
   let id = 0;
@@ -71,6 +96,8 @@ try {
   await client.opened;
   await client.send("Runtime.enable");
   await client.send("Page.enable");
+  await waitForDocument(client);
+  await pause(500);
 
   const initial = await client.send("Runtime.evaluate", {
     expression: `({ title: document.title, score: document.querySelector('#score-value')?.textContent })`,
@@ -83,7 +110,7 @@ try {
     expression: `document.querySelector('#load-demo').click()`,
     returnByValue: true,
   });
-  await pause(250);
+  await waitForStoredWorkspace(client);
 
   const demo = await client.send("Runtime.evaluate", {
     expression: `({
@@ -117,7 +144,7 @@ try {
   await writeFile(path.resolve("artifacts/proofready-demo.png"), Buffer.from(screenshot.data, "base64"));
 
   await client.send("Page.navigate", { url: `${baseUrl}/launch.html` });
-  await pause(450);
+  await waitForDocument(client, "/launch.html");
   const landing = await client.send("Runtime.evaluate", {
     expression: `({
       title: document.title,
@@ -135,7 +162,7 @@ try {
   await writeFile(path.resolve("artifacts/proofready-landing.png"), Buffer.from(landingShot.data, "base64"));
 
   await client.send("Page.navigate", { url: `${baseUrl}/validation/article4-checklist.html` });
-  await pause(350);
+  await waitForDocument(client, "/validation/article4-checklist.html");
   const checklist = await client.send("Runtime.evaluate", {
     expression: `({ title: document.title, items: document.querySelectorAll('.item').length, notice: document.querySelector('.notice')?.textContent })`,
     returnByValue: true,
