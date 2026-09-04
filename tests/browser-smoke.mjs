@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { once } from "node:events";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -146,6 +147,9 @@ try {
   client.close();
   console.log("Browser smoke passed: MVP workflow, persistence, landing page, founding offers, checklist, and screenshots.");
 } finally {
-  if (browser && !browser.killed) browser.kill("SIGKILL");
-  await rm(profile, { recursive: true, force: true });
+  if (browser && browser.exitCode === null) {
+    browser.kill("SIGKILL");
+    await once(browser, "exit");
+  }
+  await rm(profile, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
 }
