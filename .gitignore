@@ -1,0 +1,26 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Dependencies, caches, and test output
+node_modules/
+.npm/
+coverage/
+.playwright/
+test-results/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local/generated working files
+*.log
+artifacts/*.tmp

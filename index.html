@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Build a practical AI literacy evidence pack for a small team." />
+    <title>ProofReady AI — AI literacy evidence pack</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#overview" aria-label="ProofReady AI home">
+          <span class="brand-mark">P</span>
+          <span><strong>ProofReady</strong><small>AI literacy evidence</small></span>
+        </a>
+
+        <nav aria-label="Workspace sections">
+          <a class="nav-link active" href="#overview" data-tab="overview"><span>01</span> Overview</a>
+          <a class="nav-link" href="#inventory" data-tab="inventory"><span>02</span> AI inventory</a>
+          <a class="nav-link" href="#people" data-tab="people"><span>03</span> People & training</a>
+          <a class="nav-link" href="#controls" data-tab="controls"><span>04</span> Controls</a>
+          <a class="nav-link" href="#evidence" data-tab="evidence"><span>05</span> Evidence pack</a>
+        </nav>
+
+        <div class="sidebar-note">
+          <span class="status-dot"></span>
+          <div><strong>Private by design</strong><p>Everything stays in this browser.</p></div>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <button class="mobile-menu" type="button" aria-label="Open navigation">☰</button>
+          <div><p class="eyebrow">Article 4 working file</p><h1 id="page-title">Operational overview</h1></div>
+          <div class="top-actions">
+            <span id="save-status" class="save-status">Saved locally</span>
+            <button class="button ghost" id="load-demo" type="button">Load example</button>
+            <button class="button primary" id="export-pack" type="button">Export pack</button>
+          </div>
+        </header>
+
+        <section class="tab-panel active" id="overview" aria-labelledby="page-title">
+          <div class="hero-card">
+            <div>
+              <p class="eyebrow light">A practical starting point</p>
+              <h2>Turn scattered AI use into<br />a reviewable literacy record.</h2>
+              <p>Map how your team uses AI, record role context and learning actions, and export an internal evidence pack—without uploading company data.</p>
+              <button class="button light" type="button" data-go="inventory">Start with your inventory →</button>
+            </div>
+            <div class="score-card">
+              <div class="score-ring" id="score-ring"><span id="score-value">0</span><small>/100</small></div>
+              <strong>Record completeness</strong>
+              <p id="score-caption">Operational indicator only—not a legal score.</p>
+            </div>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric"><span class="metric-icon violet">◇</span><div><small>AI uses mapped</small><strong id="metric-tools">0</strong></div></article>
+            <article class="metric"><span class="metric-icon amber">◎</span><div><small>People / roles</small><strong id="metric-people">0</strong></div></article>
+            <article class="metric"><span class="metric-icon rose">!</span><div><small>High-impact uses</small><strong id="metric-risk">0</strong></div></article>
+            <article class="metric"><span class="metric-icon green">✓</span><div><small>Controls evidenced</small><strong id="metric-controls">0/4</strong></div></article>
+          </div>
+
+          <div class="content-grid two-one">
+            <article class="card">
+              <div class="card-heading"><div><p class="eyebrow">Recommended next</p><h3>Your focused action plan</h3></div><span class="pill">Auto-prioritized</span></div>
+              <div id="action-list" class="action-list empty-state">Complete the workspace to generate a focused action plan.</div>
+            </article>
+            <article class="card accent-card">
+              <p class="eyebrow">Keep in mind</p>
+              <h3>Literacy should match the context.</h3>
+              <p>Literacy measures should reflect the people, AI systems, technical knowledge and use context involved. Article 4 does not prescribe one certificate or training format.</p>
+              <a href="https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers" target="_blank" rel="noreferrer">Read the Commission Q&A ↗</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="inventory">
+          <div class="section-intro"><div><p class="eyebrow">Step 1</p><h2>Map every material AI use</h2><p>Record the system, purpose, accountable owner and human oversight. Start broad; refine later.</p></div><button class="button primary" id="add-tool" type="button">+ Add AI use</button></div>
+          <div id="tool-list" class="stack-list"></div>
+          <div id="tool-empty" class="empty-card"><span>◇</span><h3>No AI uses mapped yet</h3><p>Add chatbots, copilots, recommendation tools, automated scoring, content systems, or AI features inside other software.</p><button class="button secondary" type="button" data-action="add-tool">Add your first AI use</button></div>
+        </section>
+
+        <section class="tab-panel" id="people">
+          <div class="section-intro"><div><p class="eyebrow">Step 2</p><h2>Match literacy to each role</h2><p>ProofReady suggests modules from the role and the AI uses connected to it.</p></div><button class="button primary" id="add-person" type="button">+ Add person or role</button></div>
+          <div id="people-list" class="stack-list"></div>
+          <div id="people-empty" class="empty-card"><span>◎</span><h3>No roles added yet</h3><p>Add individuals or role groups—such as “support team” or “managers”—to build the training matrix.</p><button class="button secondary" type="button" data-action="add-person">Add a role</button></div>
+        </section>
+
+        <section class="tab-panel" id="controls">
+          <div class="section-intro"><div><p class="eyebrow">Step 3</p><h2>Document ownership and controls</h2><p>Capture the small set of facts that make your literacy program repeatable and reviewable.</p></div></div>
+          <article class="card form-card">
+            <div class="form-grid">
+              <label>Organization name<input id="company-name" type="text" placeholder="Acme Studio" /></label>
+              <label>Sector / context<input id="company-sector" type="text" placeholder="Marketing agency serving EU clients" /></label>
+              <label>AI literacy owner<input id="company-owner" type="text" placeholder="Name or role" /></label>
+              <label>Next review date<input id="review-date" type="date" /></label>
+            </div>
+          </article>
+          <div class="control-grid">
+            <label class="control-card"><input type="checkbox" data-control="policy" /><span class="checkmark">✓</span><div><strong>Acceptable-use policy</strong><p>Rules cover approved tools, prohibited data, review and accountability.</p></div></label>
+            <label class="control-card"><input type="checkbox" data-control="training" /><span class="checkmark">✓</span><div><strong>Training delivered</strong><p>Role-appropriate activity is completed and participation is recorded.</p></div></label>
+            <label class="control-card"><input type="checkbox" data-control="incidentPath" /><span class="checkmark">✓</span><div><strong>Incident path</strong><p>People know where to report harmful output, failures or data exposure.</p></div></label>
+            <label class="control-card"><input type="checkbox" data-control="reviewCadence" /><span class="checkmark">✓</span><div><strong>Review cadence</strong><p>The inventory, literacy needs and evidence are checked periodically.</p></div></label>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="evidence">
+          <div class="section-intro"><div><p class="eyebrow">Step 4</p><h2>Generate your evidence pack</h2><p>Export structured data or print a readable pack for internal records and review.</p></div><div class="button-row"><button class="button secondary" id="copy-policy" type="button">Copy policy</button><button class="button primary" id="print-pack" type="button">Print / save PDF</button></div></div>
+          <div class="evidence-grid">
+            <article class="card evidence-card"><span>01</span><h3>Executive snapshot</h3><p>Record-completeness indicator, key risks, ownership and open actions.</p></article>
+            <article class="card evidence-card"><span>02</span><h3>AI use inventory</h3><p>Purpose, risk context, owners, data use and human oversight.</p></article>
+            <article class="card evidence-card"><span>03</span><h3>Literacy action matrix</h3><p>Role context, suggested topics, action status and evidence references.</p></article>
+            <article class="card evidence-card"><span>04</span><h3>Policy starter</h3><p>A tailored responsible-use policy ready for internal review.</p></article>
+          </div>
+          <article class="card preview-card">
+            <div class="card-heading"><div><p class="eyebrow">Live preview · template reviewed 4 Sep 2026</p><h3>Responsible AI Use & Literacy Policy</h3></div><span class="pill">Draft · not certification</span></div>
+            <pre id="policy-preview"></pre>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="tool-dialog">
+      <form method="dialog" id="tool-form">
+        <div class="dialog-heading"><div><p class="eyebrow">Inventory item</p><h2>Add an AI use</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div>
+        <input type="hidden" name="id" />
+        <div class="form-grid">
+          <label>Tool or system name<input name="name" required placeholder="e.g. AI writing assistant" /></label>
+          <label>Accountable owner<input name="owner" placeholder="Name or role" /></label>
+          <label class="full">Business purpose<textarea name="purpose" required placeholder="What does it help the team do?"></textarea></label>
+          <label>Impact level<select name="risk"><option value="low">Low — internal assistance</option><option value="medium" selected>Medium — customer-facing output</option><option value="high">High — consequential or sensitive</option></select></label>
+          <label>Organisation's role for this system<select name="legalRole"><option value="unsure">Unsure — obtain advice if material</option><option value="deployer">Deployer / user</option><option value="provider">Provider</option><option value="both">Both / context-dependent</option></select></label>
+          <label class="toggle-label"><input name="personalData" type="checkbox" /> May receive personal/confidential data</label>
+          <label class="full">Human oversight<textarea name="oversight" placeholder="Who checks what, and before which action?"></textarea></label>
+        </div>
+        <div class="dialog-actions"><button class="button ghost" value="cancel">Cancel</button><button class="button primary" value="default" id="save-tool">Save AI use</button></div>
+      </form>
+    </dialog>
+
+    <dialog id="person-dialog">
+      <form method="dialog" id="person-form">
+        <div class="dialog-heading"><div><p class="eyebrow">Training matrix</p><h2>Add a person or role</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div>
+        <input type="hidden" name="id" />
+        <div class="form-grid">
+          <label>Name / group<input name="name" required placeholder="e.g. Client support team" /></label>
+          <label>Role or responsibility<input name="role" required placeholder="e.g. Customer support specialists" /></label>
+          <label>Current AI knowledge / experience<select name="experience"><option value="">Not recorded</option><option>New</option><option>Basic</option><option>Working</option><option>Advanced</option></select></label>
+          <label>Literacy action<input name="literacyAction" placeholder="e.g. role briefing and safe-use workshop" /></label>
+          <label>Action status<select name="status"><option>Planned</option><option>In progress</option><option>Complete</option></select></label>
+          <label>Completed date<input name="completedDate" type="date" /></label>
+          <label class="full">Evidence reference<input name="evidenceReference" placeholder="e.g. attendance sheet, agenda or LMS record ID" /></label>
+          <fieldset class="full"><legend>Relevant AI uses</legend><div id="person-tool-options" class="checkbox-list"></div></fieldset>
+        </div>
+        <div class="dialog-actions"><button class="button ghost" value="cancel">Cancel</button><button class="button primary" value="default" id="save-person">Save role</button></div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
